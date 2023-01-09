@@ -9,6 +9,9 @@ export class GifsService {
   private apiKey: string = 'ea9NccBEvVGSgOjt33xPd9UNtDwWoqj0';
   private _historial: string[] = [];
 
+  //TODO: cambiar any por su tipo
+  public resultados: any[] = [];
+
   get historial() {
     return this._historial;
   }
@@ -26,9 +29,10 @@ export class GifsService {
       this._historial = this._historial.splice(0,10);
     }
 
-    this.http.get('https://api.giphy.com/v1/gifs/search?api_key=ea9NccBEvVGSgOjt33xPd9UNtDwWoqj0&q=pokemon&limit=10')
+    this.http.get(`https://api.giphy.com/v1/gifs/search?api_key=ea9NccBEvVGSgOjt33xPd9UNtDwWoqj0&q=${ query }&limit=10`)
     .subscribe( (resp: any) =>{
         console.log(resp.data);
+        this.resultados = resp.data;
     });
 
   }
